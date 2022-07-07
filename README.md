@@ -1,4 +1,7 @@
 ## StartUp
+![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
+
+![](https://gitee.com/svegeta/screenshot/raw/master/dotfiles.jpg)
 
 ### Install 
 ```bash
