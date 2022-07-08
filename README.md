@@ -11,10 +11,11 @@
 
 
 <p align="center">
-  <a href="https://github.com/StubbornVegeta/StartUp/releases/latest">
-    <img src="https://img.shields.io/badge/-Latest-blue">
-  </a>
-  <a href="https://github.com/StubbornVegeta/StartUp/blob/master/LICENSE.md">
+    <a href="#"><img src="https://img.shields.io/badge/c++-%2300599C.svg?style=flat&logo=c%2B%2B&logoColor=white"></img></a>
+  <!-- <a href="https://github.com/StubbornVegeta/StartUp/releases/latest"> -->
+  <!--   <img src="https://img.shields.io/badge/-Latest-blue"> -->
+  <!-- </a> -->
+  <a href="https://github.com/StubbornVegeta/StartUp/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/StubbornVegeta/StartUp" alt="LICENSE">
   </a>
 </p>
