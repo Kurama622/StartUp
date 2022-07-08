@@ -1,8 +1,13 @@
 #!/bin/bash
 
-mkdir build
+if [ ! -d "build" ]; then
+    mkdir build
+fi
 cd build
-cmake ..
-make
-cp StartUp /usr/local/bin/ 
+if [ ! -f "Makefile" ]; then
+    cmake ..
+else
+    make
+fi
+sudo cp StartUp /usr/local/bin/ 
 

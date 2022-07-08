@@ -26,10 +26,13 @@ const std::vector<std::string> dotfiles_list = {
   "~/.config/nvim/init.lua",
   "~/.config/ranger/rc.conf",
   "~/.config/zsh/module/aliases.zsh",
+  "~/.config/StartUp/src/config.hpp",
 };
 
 const std::vector<std::string> paths_list = {
-  "~/Desktop/StartUp",
+  "~/.config/StartUp",
+  "~/.config/StartUp/src",
+  "~/.config/StartUp/build",
   "~/.config",
   "~/.config/nvim",
   "~/.config/ranger",
