@@ -1,10 +1,29 @@
 
+
 <p align="center">
 <img alt="logo" src="https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png" width="50%" />
-
-# StartUp
 </p>
 
+<h1 align="center">StartUp</h1>
+<h3 align="center">
+  A collection of human friendly terminal user interface.
+</h3>
+
+<p align="center">
+  <a href="###Installation"><b>Installation</b></a>&nbsp;&bull;
+  <a href="###Usage"><b>Usage</b></a>&nbsp;&bull;
+  <a href="###Configuration"><b>Configuration</b></a>&nbsp;&bull;
+  <a href="###Thanks"><b>Thanks</b></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/ArthurSonzogni/git-tui/releases/latest">
+    <img src="https://img.shields.io/badge/-Latest-blue">
+  </a>
+  <a href="https://github.com/ArthurSonzogni/git-tui/blob/master/LICENSE.md">
+    <img src="https://img.shields.io/github/license/ArthurSonzogni/git-tui" alt="LICENSE">
+  </a>
+</p>
 
 ![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
 
