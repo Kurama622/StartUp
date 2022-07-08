@@ -7,11 +7,7 @@
 ```bash
 git clone https://github.com/StubbornVegeta/StartUp > ~/.config/
 cd ~/.config/StartUp
-mkdir build
-cd build
-cmake ..
-make
-sudo cp StartUp /usr/local/bin/ 
+./install.sh
 ```
 
 ### Usage
