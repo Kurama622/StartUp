@@ -1,6 +1,7 @@
-![logo](https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png)
 
-# StartUp
+<img alt="logo" src="https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png" width="50%" />
+
+<h2 style="text-align: center;">  StartUp </h2>
 
 ![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
 
