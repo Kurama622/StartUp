@@ -1,7 +1,18 @@
-## StartUp
+# StartUp
+
 ![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
 
 ![](https://gitee.com/svegeta/screenshot/raw/master/dotfiles.jpg)
+
+**Note**:
+
+`find file` relies on `fzf`.
+
+`file browser` relies on `ranger` / `lf` / ...
+
+**TODO List**:
+- [ ] built-in find file
+- [ ] add tmenu (run command)
 
 ### Install 
 ```bash
