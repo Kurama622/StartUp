@@ -1,3 +1,5 @@
+![logo](https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png)
+
 # StartUp
 
 ![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
@@ -75,6 +77,6 @@ url                 = "https://github.com/StubbornVegeta/StartUp"
  - `hand_writing`
  - `black_outline`
 
-### UI Refer
-- [dashboard-nvim](https://github.com/glepnir/dashboard-nvim)
-
+### Thanks
+- [dashboard-nvim](https://github.com/glepnir/dashboard-nvim) - UI Reference
+- [FTXUI](https://github.com/ArthurSonzogni/FTXUI)  - TUI
