@@ -11,9 +11,9 @@
 #include "ftxui/component/event.hpp"               // for Event
 #include "unistd.h"
 
-#include "config.hpp"
-#include "modal.hpp"
 #include "oldfiles.hpp"
+#include "modal.hpp"
+#include "config.hpp"
 
 /* using ftxui::Container; */
 /* using ftxui::Component; */
@@ -31,6 +31,9 @@
 /* using ftxui::ScreenInteractive; */
 using namespace ftxui;
 
+
+startup conf = StartUp::setup();
+
 Component Document(Elements elements, Component radiobox) {
   return Renderer(radiobox, [=] {
     return hbox({
@@ -43,7 +46,7 @@ Component Document(Elements elements, Component radiobox) {
         color(Color::Cyan, radiobox->Render()) | center,
         text("") | center,
         text("") | center,
-        color(Color::Yellow, text(url)) | center,
+        color(Color::Yellow, text(conf.url)) | center,
       }) | vcenter | flex,
     });
   });}
@@ -80,10 +83,10 @@ Component ModalComponent(std::function<void()> do_nothing,
 int main(void) {
   auto screen = ScreenInteractive::Fullscreen();
   Elements elements;
-  for (const std::string& it : header) {
+  for (const std::string& it : conf.header) {
     elements.push_back(color(Color::Green, text(it)));
   }
-  auto radiobox = Radiobox(&radiobox_list, &radiobox_selected);
+  auto radiobox = Radiobox(&radiobox_list, &conf.radiobox_selected);
   auto main_container = Container::Horizontal({
       Document(elements, radiobox) | flex,
   });
@@ -94,10 +97,10 @@ int main(void) {
   bool paths_shown    = false;
 
   // oldfiles
-  std::vector<std::string> oldfiles_list = StartUp::RecentlyOpenFile(oldfiles_cmd);
-  auto oldfiles_box = Menu(&oldfiles_list, &oldfiles_selected);
-  auto dotfiles_box = Menu(&dotfiles_list, &dotfiles_selected);
-  auto paths_box = Menu(&paths_list, &paths_selected);
+  std::vector<std::string> oldfiles_list = StartUp::RecentlyOpenFile(conf.oldfiles_cmd);
+  auto oldfiles_box = Menu(&oldfiles_list, &conf.oldfiles_selected);
+  auto dotfiles_box = Menu(&conf.dotfiles_list, &conf.dotfiles_selected);
+  auto paths_box = Menu(&conf.paths_list, &conf.paths_selected);
  
 
   // Some actions modifying the state:
@@ -144,27 +147,27 @@ int main(void) {
     }
     if (event == Event::Character('f')) {
       screen.ExitLoopClosure()();
-      system(find_file_cmd);
+      system(conf.find_file_cmd);
       return true;
     }
     if (event == Event::Character('b')) {
       screen.ExitLoopClosure()();
-      system(file_browser_cmd);
+      system(conf.file_browser_cmd);
       return true;
     }
     if (!oldfiles_shown && !dotfiles_shown && !paths_shown && event == Event::Return) {
       radiobox->OnEvent(event);
-      switch(radiobox_selected) {
+      switch(conf.radiobox_selected) {
         case 0:
           oldfiles_shown = true;
           break;
         case 1:
           screen.ExitLoopClosure()();
-          system(find_file_cmd);
+          system(conf.find_file_cmd);
           break;
         case 2:
           screen.ExitLoopClosure()();
-          system(file_browser_cmd);
+          system(conf.file_browser_cmd);
           break;
         case 3:
           dotfiles_shown = true;
@@ -182,21 +185,21 @@ int main(void) {
       oldfiles_box->OnEvent(event);
       oldfiles_shown = false;
       screen.ExitLoopClosure()();
-      system((edtior + " " + oldfiles_list[oldfiles_selected]).c_str());
+      system((conf.editor + " " + oldfiles_list[conf.oldfiles_selected]).c_str());
       return true;
     }
     if (dotfiles_shown && event == Event::Return) {
       dotfiles_box->OnEvent(event);
       dotfiles_shown = false;
       screen.ExitLoopClosure()();
-      system((edtior + " " + dotfiles_list[dotfiles_selected]).c_str());
+      system((conf.editor + " " + conf.dotfiles_list[conf.dotfiles_selected]).c_str());
       return true;
     }
     if (paths_shown && event == Event::Return) {
       paths_box->OnEvent(event);
       screen.ExitLoopClosure()();
       paths_shown = false;
-      system((std::string("echo cd ") + paths_list[paths_selected] + "> $HOME/cd.sh").c_str());
+      system((std::string("echo cd ") + conf.paths_list[conf.paths_selected] + "> $HOME/cd.sh").c_str());
       return true;
     }
     return false;

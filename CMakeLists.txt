@@ -9,6 +9,7 @@ FetchContent_Declare(ftxui
   GIT_TAG v3.0.0
 )
 
+
 FetchContent_GetProperties(ftxui)
 if(NOT ftxui_POPULATED)
   FetchContent_Populate(ftxui)
@@ -22,14 +23,19 @@ project(StartUp
   VERSION 1.0.0
 )
 
-add_executable(StartUp src/main.cpp src/modal.cpp src/oldfiles.cpp)
+find_package(Lua)
+# include_directories(${LUA_INCLUDE_DIR})
 
-target_include_directories(StartUp PRIVATE src)
+add_executable(StartUp src/main.cpp src/modal.cpp src/oldfiles.cpp src/config.cpp)
+
+target_include_directories(StartUp PRIVATE src ${LUA_INCLUDE_DIR})
+
 
 target_link_libraries(StartUp
   PRIVATE ftxui::screen
   PRIVATE ftxui::dom
   PRIVATE ftxui::component # Not needed for this example.
+    ${LUA_LIBRARIES}
 )
 
 if (EMSCRIPTEN) 
