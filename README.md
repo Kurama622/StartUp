@@ -68,7 +68,7 @@ oldfiles_cmd        = "nvim --headless -u NONE -c'echo v:oldfiles | qall!' 2>&1"
 
 url                 = "https://github.com/StubbornVegeta/StartUp"
 ```
-`style` (logo style):
+`style` ( logo style ):
  - `ghost`
  - `melting`
  - `fading`
