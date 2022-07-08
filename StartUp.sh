@@ -1,6 +1,6 @@
 #!/bin/sh
 StartUp
-file="$HOME/cd.sh"
+file="/tmp/startup_cd.sh"
 if [ -f "$file" ]; then
     source $file
     rm $file

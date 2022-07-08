@@ -108,7 +108,6 @@ int main(void) {
   /* auto show_dotfiles = [&] { dotfiles_shown = true; }; */
   auto hide_modal = [&] { oldfiles_shown = false; dotfiles_shown = false; paths_shown = false;};
   auto do_nothing = [&] {};
-  /* auto oldfiles_component = OldFilesComponent(do_nothing, hide_modal, oldfiles_box); */
   auto oldfiles_component = ModalComponent(do_nothing, hide_modal, oldfiles_box, "Recently Open File", 100);
   auto dotfiles_component = ModalComponent(do_nothing, hide_modal, dotfiles_box, "Open Dotfiles", 70);
   auto paths_component = ModalComponent(do_nothing, hide_modal, paths_box, "Tag Paths", 70);
@@ -199,7 +198,7 @@ int main(void) {
       paths_box->OnEvent(event);
       screen.ExitLoopClosure()();
       paths_shown = false;
-      system((std::string("echo cd ") + conf.paths_list[conf.paths_selected] + "> $HOME/cd.sh").c_str());
+      system((std::string("echo cd ") + conf.paths_list[conf.paths_selected] + "> /tmp/startup_cd.sh").c_str());
       return true;
     }
     return false;

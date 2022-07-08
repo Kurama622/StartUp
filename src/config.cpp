@@ -31,7 +31,7 @@ namespace StartUp {
     //dotfiles_list
     GetLuaTable(n, L, "dotfiles_list", dotfiles_list);
 
-    //radiobox_list
+    //paths_list
     GetLuaTable(n, L, "paths_list", paths_list);
 
     // radiobox_selected
