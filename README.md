@@ -1,10 +1,9 @@
-
-
+<br>
 <p align="center">
 <img alt="logo" src="https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png" width="50%" />
 </p>
 
-<h1 align="center">StartUp</h1>
+<!-- <h1 align="center">StartUp</h1> -->
 <h3 align="center">
   A collection of human friendly terminal user interface.
 </h3>
@@ -12,9 +11,6 @@
 
 <p align="center">
     <a href="#"><img src="https://img.shields.io/badge/c++-%2300599C.svg?style=flat&logo=c%2B%2B&logoColor=white"></img></a>
-  <!-- <a href="https://github.com/StubbornVegeta/StartUp/releases/latest"> -->
-  <!--   <img src="https://img.shields.io/badge/-Latest-blue"> -->
-  <!-- </a> -->
   <a href="https://github.com/StubbornVegeta/StartUp/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/StubbornVegeta/StartUp" alt="LICENSE">
   </a>
