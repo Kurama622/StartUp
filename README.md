@@ -9,21 +9,25 @@
   A collection of human friendly terminal user interface.
 </h3>
 
+
 <p align="center">
+  <a href="https://github.com/StubbornVegeta/StartUp/releases/latest">
+    <img src="https://img.shields.io/badge/-Latest-blue">
+  </a>
+  <a href="https://github.com/StubbornVegeta/StartUp/blob/master/LICENSE.md">
+    <img src="https://img.shields.io/github/license/StubbornVegeta/StartUp" alt="LICENSE">
+  </a>
+</p>
+
+<p align="center">
+  <a href="###Screenshot"><b>Screenshot</b></a>&nbsp;&bull;
   <a href="###Installation"><b>Installation</b></a>&nbsp;&bull;
   <a href="###Usage"><b>Usage</b></a>&nbsp;&bull;
   <a href="###Configuration"><b>Configuration</b></a>&nbsp;&bull;
   <a href="###Thanks"><b>Thanks</b></a>
 </p>
 
-<p align="center">
-  <a href="https://github.com/ArthurSonzogni/git-tui/releases/latest">
-    <img src="https://img.shields.io/badge/-Latest-blue">
-  </a>
-  <a href="https://github.com/ArthurSonzogni/git-tui/blob/master/LICENSE.md">
-    <img src="https://img.shields.io/github/license/ArthurSonzogni/git-tui" alt="LICENSE">
-  </a>
-</p>
+### Screenshot
 
 ![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
 
