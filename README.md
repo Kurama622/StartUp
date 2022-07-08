@@ -1,9 +1,9 @@
 
-<center>
+<p align="center">
 <img alt="logo" src="https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png" width="50%" />
 
 # StartUp
-</center>
+</p>
 
 
 ![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
