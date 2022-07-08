@@ -1,5 +1,7 @@
 
+<div style="text-align: center;">
 <img alt="logo" src="https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png" width="50%" />
+</div>
 
 <h2 style="text-align: center;">  StartUp </h2>
 
