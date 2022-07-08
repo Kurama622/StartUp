@@ -31,25 +31,8 @@ namespace StartUp {
     //dotfiles_list
     GetLuaTable(n, L, "dotfiles_list", dotfiles_list);
 
-    // lua_getglobal(L, "dotfiles_list");
-    // n = luaL_len(L,-1);
-    // for ( int i = 0; i < n; ++i) {
-    //   lua_pushnumber(L, i+1);
-    //   lua_gettable(L, -2);
-    //   dotfiles_list.push_back(lua_tostring(L,-1));
-    //   lua_pop(L,1);
-    // }
-
     //radiobox_list
     GetLuaTable(n, L, "paths_list", paths_list);
-    // lua_getglobal(L, "paths_list");
-    // n = luaL_len(L,-1);
-    // for ( int i = 0; i < n; ++i) {
-    //   lua_pushnumber(L, i+1);
-    //   lua_gettable(L, -2);
-    //   paths_list.push_back(lua_tostring(L,-1));
-    //   lua_pop(L,1);
-    // }
 
     // radiobox_selected
     lua_getglobal(L, "radiobox_selected");
@@ -58,7 +41,7 @@ namespace StartUp {
     // oldfiles_selected
     lua_getglobal(L, "oldfiles_selected");
     int oldfiles_selected = lua_tonumber(L, -1);
-    
+
     // dotfiles_selected
     lua_getglobal(L, "dotfiles_selected");
     int dotfiles_selected = lua_tonumber(L, -1);

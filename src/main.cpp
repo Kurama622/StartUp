@@ -15,20 +15,20 @@
 #include "modal.hpp"
 #include "config.hpp"
 
-/* using ftxui::Container; */
-/* using ftxui::Component; */
-/* using ftxui::Elements; */
-/* using ftxui::hbox; */
-/* using ftxui::vbox; */
-/* using ftxui::text; */
-/* using ftxui::Color; */
-/* using ftxui::center; */
-/* using ftxui::vcenter; */
-/* using ftxui::hcenter; */
-/* using ftxui::flex; */
-/* using ftxui::border; */
-/* using ftxui::Radiobox; */
-/* using ftxui::ScreenInteractive; */
+// using ftxui::Container;
+// using ftxui::Component;
+// using ftxui::Elements;
+// using ftxui::hbox;
+// using ftxui::vbox;
+// using ftxui::text;
+// using ftxui::Color;
+// using ftxui::center;
+// using ftxui::vcenter;
+// using ftxui::hcenter;
+// using ftxui::flex;
+// using ftxui::border;
+// using ftxui::Radiobox;
+// using ftxui::ScreenInteractive;
 using namespace ftxui;
 
 
@@ -69,13 +69,13 @@ Component ModalComponent(std::function<void()> do_nothing,
   });
   // Polish how the two buttons are rendered:
   //
-  /* component |= Renderer([&](Element inner ) { */
-  /*   return vbox({ */
-  /*              inner, */
-  /*          })                               // */
-  /*          | size(WIDTH, GREATER_THAN, 100)  // */
-  /*          | border;                        // */
-  /* }); */
+  // component |= Renderer([&](Element inner ) {
+  //   return vbox({
+  //              inner,
+  //          })
+  //          | size(WIDTH, GREATER_THAN, 100) 
+  //          | border;                        
+  // });
   return component;
 }
 
@@ -205,8 +205,8 @@ int main(void) {
     return false;
   });
   screen.Loop(component);
-  /* if (paths_shown) { */
-  /*   std::cout << std::string("cd ") + paths_list[paths_selected] << '\n'; */
-  /* } */
+  // if (paths_shown) {
+  //   std::cout << std::string("cd ") + paths_list[paths_selected] << '\n';
+  // }
   return EXIT_SUCCESS;
 }
