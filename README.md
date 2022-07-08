@@ -20,11 +20,11 @@
 </p>
 
 <p align="center">
-  <a href="###Screenshot"><b>Screenshot</b></a>&nbsp;&bull;
-  <a href="###Installation"><b>Installation</b></a>&nbsp;&bull;
-  <a href="###Usage"><b>Usage</b></a>&nbsp;&bull;
-  <a href="###Configuration"><b>Configuration</b></a>&nbsp;&bull;
-  <a href="###Thanks"><b>Thanks</b></a>
+  <a href="#Screenshot"><b>Screenshot</b></a>&nbsp;&bull;
+  <a href="#Installation"><b>Installation</b></a>&nbsp;&bull;
+  <a href="#Usage"><b>Usage</b></a>&nbsp;&bull;
+  <a href="#Configuration"><b>Configuration</b></a>&nbsp;&bull;
+  <a href="#Thanks"><b>Thanks</b></a>
 </p>
 
 ### Screenshot
