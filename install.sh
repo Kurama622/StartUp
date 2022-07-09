@@ -6,6 +6,7 @@ fi
 cd build
 if [ ! -f "Makefile" ]; then
     cmake ..
+    make
 else
     make
 fi

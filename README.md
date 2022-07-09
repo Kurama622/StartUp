@@ -42,7 +42,7 @@
 
 ### Installation 
 ```bash
-git clone https://github.com/StubbornVegeta/StartUp > ~/.config/
+git clone https://github.com/StubbornVegeta/StartUp ~/.config/
 cd ~/.config/StartUp
 ./install.sh
 ```
