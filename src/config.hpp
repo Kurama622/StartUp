@@ -9,6 +9,12 @@ extern "C" {
   #include "lauxlib.h"
 }
 
+#if (LUA_VERSION_NUM > 501)
+  #define LUAL_LEN luaL_len
+#else 
+  #define LUAL_LEN lua_objlen
+#endif
+
 #define MAX_USERID_LENGTH 32
 
 const std::vector<std::string> radiobox_list = {
