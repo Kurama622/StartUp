@@ -4,7 +4,7 @@
 
 void GetLuaTable(int& n, lua_State*& L, const char* var_name, std::vector<std::string>& var) {
   lua_getglobal(L, var_name);
-  n = luaL_len(L,-1);
+  n = lua_objlen(L,-1);
   for ( int i = 0; i < n; ++i) {
     lua_pushnumber(L, i+1);
     lua_gettable(L, -2);
@@ -74,7 +74,7 @@ namespace StartUp {
     luaL_dofile(L, (HOME+"/.config/StartUp/header/header.lua").c_str());
     lua_getglobal(L, style);
     int ret = lua_pcall(L, 0, 1, -1);
-    n = luaL_len(L,-1);
+    n = lua_objlen(L,-1);
      for (int i = 0; i < n; ++i) {
        lua_pushnumber(L, i+1);
        lua_gettable(L, -2);
