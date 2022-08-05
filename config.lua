@@ -19,6 +19,7 @@ paths_list = {
   "~/.config/nvim",
   "~/.config/ranger",
   "~/.config/zsh/module",
+  "~/Desktop",
 }
 
 radiobox_selected   = 0
