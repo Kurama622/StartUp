@@ -20,6 +20,7 @@ paths_list = {
   "~/.config/ranger",
   "~/.config/zsh/module",
   "~/Desktop",
+  "~/svegeta"
 }
 
 radiobox_selected   = 0
