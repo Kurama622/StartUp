@@ -25,10 +25,9 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: check env
+      - name: install lua
         run: |
-          lua -v
-          clang -v
+          brew install lua
 
       - name: Checkout
         uses: actions/checkout@v3
