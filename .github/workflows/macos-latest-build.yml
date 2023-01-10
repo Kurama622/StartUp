@@ -1,4 +1,4 @@
-name: build StartUp in Macos
+name: Build StartUp in Macos
 
 on:
   # Runs on pushes targeting the default branch
@@ -22,10 +22,10 @@ defaults:
 
 jobs:
   # Build job
-  build:
+  build-on-Macos-latest:
     runs-on: macos-latest
     steps:
-      - name: install lua
+      - name: Install Lua
         run: |
           brew install lua
 
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-      - name: build
+      - name: Build in Macos
         run: |
           mkdir build
           cd build
