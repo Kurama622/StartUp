@@ -18,9 +18,7 @@ namespace StartUp {
     std::vector<std::string> header = {};
     std::vector<std::string> dotfiles_list = {};
     std::vector<std::string> paths_list = {};
-    char username[MAX_USERID_LENGTH];
-    cuserid(username);
-    std::string HOME = std::string("/home/") + std::string(username);
+    std::string HOME = std::getenv("HOME");
     lua_State*  L = luaL_newstate();
     luaL_openlibs(L);
     luaL_dofile(L, (HOME+"/.config/StartUp/config.lua").c_str());
