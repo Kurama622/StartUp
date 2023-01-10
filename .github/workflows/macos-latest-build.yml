@@ -1,4 +1,3 @@
-# Sample workflow for building and deploying a Hugo site to GitHub Pages
 name: build StartUp in Macos
 
 on:
@@ -25,9 +24,12 @@ jobs:
   # Build job
   build:
     runs-on: macos-latest
-    env:
-      HUGO_VERSION: 0.108.0
     steps:
+      - name: check env
+        run: |
+          lua -v
+          clang -v
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
