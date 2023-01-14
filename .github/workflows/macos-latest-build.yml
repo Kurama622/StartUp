@@ -39,3 +39,4 @@ jobs:
           cd build
           cmake ..
           make
+          StartUp
