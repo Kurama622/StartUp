@@ -1,4 +1,4 @@
-name: Build StartUp in Macos
+name: Build StartUp on Macos
 
 on:
   # Runs on pushes targeting the default branch
@@ -39,4 +39,4 @@ jobs:
           cd build
           cmake ..
           make
-          StartUp
+          ./StartUp
