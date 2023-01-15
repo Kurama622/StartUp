@@ -26,7 +26,7 @@ project(StartUp
 find_package(Lua)
 # include_directories(${LUA_INCLUDE_DIR})
 
-add_executable(StartUp src/main.cpp src/modal.cpp src/oldfiles.cpp src/config.cpp)
+add_executable(StartUp src/main.cpp src/modal.cpp src/oldfiles.cpp src/config.cpp src/filter.cpp src/preview.cpp)
 
 target_include_directories(StartUp PRIVATE src ${LUA_INCLUDE_DIR})
 
