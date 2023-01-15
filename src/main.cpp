@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include<vector>
 
@@ -15,20 +16,11 @@
 #include "modal.hpp"
 #include "config.hpp"
 
-// using ftxui::Container;
-// using ftxui::Component;
-// using ftxui::Elements;
-// using ftxui::hbox;
-// using ftxui::vbox;
-// using ftxui::text;
-// using ftxui::Color;
-// using ftxui::center;
-// using ftxui::vcenter;
-// using ftxui::hcenter;
-// using ftxui::flex;
-// using ftxui::border;
-// using ftxui::Radiobox;
-// using ftxui::ScreenInteractive;
+#include "ftxui/dom/flexbox_config.hpp"
+#include "filter.hpp"
+#include "preview.hpp"
+#include <sys/stat.h>
+
 using namespace ftxui;
 
 
@@ -61,7 +53,7 @@ Component ModalComponent(std::function<void()> do_nothing,
                 return vbox({
                     text({title}) | center,
                     separator(),
-                    color(Color::CyanLight, dotfiles_box->Render()),
+                    color(Color::Cyan, dotfiles_box->Render()),
                              }) | yframe;
                })
            | size(WIDTH, GREATER_THAN, percent)
@@ -79,6 +71,10 @@ Component ModalComponent(std::function<void()> do_nothing,
   return component;
 }
 
+inline bool exists_if (const std::string& name) {
+  struct stat buffer;
+  return (stat (name.c_str(), &buffer) == 0); 
+}
 
 int main(void) {
   auto screen = ScreenInteractive::Fullscreen();
@@ -98,7 +94,72 @@ int main(void) {
 
   // oldfiles
   std::vector<std::string> oldfiles_list = StartUp::RecentlyOpenFile(conf.oldfiles_cmd);
-  auto oldfiles_box = Menu(&oldfiles_list, &conf.oldfiles_selected);
+  std::vector<std::string> oldfiles_list_bak = oldfiles_list;
+  std::string file_name;
+  std::string file_name_bak = file_name;
+  Component input_box = Input(&file_name, "") | color(Color::White);
+
+  Component oldfiles_box =
+      Menu(&oldfiles_list_bak, &conf.oldfiles_selected);
+
+  Component oldfiles_container = Container::Vertical({
+      input_box  ,
+      oldfiles_box ,
+  });
+
+
+  std::vector<std::string> wraps = {
+      "NoWrap",
+      "Wrap",
+      "WrapInversed",
+  };
+
+  // std::vector<std::string> _direction = {"Column", };
+  std::vector<std::string> directions = {
+      "Row",
+      "RowInversed",
+      "Column",
+      "ColumnInversed",
+  };
+
+  auto oldfiles_renderer = Renderer(oldfiles_container, [&] {
+    if (file_name != file_name_bak) {
+      file_name_bak = file_name;
+      oldfiles_list_bak.clear();
+      conf.oldfiles_selected = 0;
+      // menu_entries_bak = {""};
+      filter(oldfiles_list, oldfiles_list_bak, file_name);
+      if (file_name.empty() && oldfiles_list_bak.empty()) {
+         oldfiles_list_bak = oldfiles_list;
+      }
+    }
+    // FlexboxConfig config;
+    Elements con = {};
+    if (!oldfiles_list_bak.empty()) {
+      if(exists_if(oldfiles_list_bak[conf.oldfiles_selected]))
+        con = exec(("cat " + oldfiles_list_bak[conf.oldfiles_selected]).c_str());
+      else {
+        con = {text("The file is not exist")};
+      }
+    }
+
+    // auto _wrap = FlexboxConfig().Set(FlexboxConfig::Wrap::Wrap)
+    //                             .Set(FlexboxConfig::Direction::Column);
+    return vbox( {
+                  vbox({
+                      window(text("") , hbox( {color(Color::Green, text("-> ")) | blink  , vbox(input_box->Render()) })) | size(HEIGHT, EQUAL, 5 ) ,
+                  }),
+                  vbox({
+                    window(text("HISTORY FILES") | hcenter, vbox(color(Color::Cyan, oldfiles_box->Render())) | yframe) | size(HEIGHT, EQUAL, 45 ) | size(WIDTH, EQUAL, 90 ),
+                    window(text("PREVIEW") | hcenter, color(Color::Cyan, vbox(con))) | size(HEIGHT, EQUAL, 45) | size(WIDTH, EQUAL, 90 ),
+                   })
+                });
+  });
+  // auto oldfiles_box = Menu(&oldfiles_list, &conf.oldfiles_selected);
+
+
+
+
   auto dotfiles_box = Menu(&conf.dotfiles_list, &conf.dotfiles_selected);
   auto paths_box = Menu(&conf.paths_list, &conf.paths_selected);
  
@@ -108,10 +169,10 @@ int main(void) {
   /* auto show_dotfiles = [&] { dotfiles_shown = true; }; */
   auto hide_modal = [&] { oldfiles_shown = false; dotfiles_shown = false; paths_shown = false;};
   auto do_nothing = [&] {};
-  auto oldfiles_component = ModalComponent(do_nothing, hide_modal, oldfiles_box, "Recently Open File", 100);
+  // auto oldfiles_component = ModalComponent(do_nothing, hide_modal, oldfiles_box, "Recently Open File", 100);
   auto dotfiles_component = ModalComponent(do_nothing, hide_modal, dotfiles_box, "Open Dotfiles", 70);
   auto paths_component = ModalComponent(do_nothing, hide_modal, paths_box, "Tag Paths", 70);
-  main_container |= Modal(oldfiles_component, &oldfiles_shown);
+  main_container |= Modal(oldfiles_renderer, &oldfiles_shown);
   main_container |= Modal(dotfiles_component, &dotfiles_shown);
   main_container |= Modal(paths_component, &paths_shown);
 
@@ -132,28 +193,29 @@ int main(void) {
       paths_shown = false;
       return true;
     }
-    if (event == Event::Character('o')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('o')) {
       oldfiles_shown = true;
       return true;
     }
-    if (event == Event::Character('d')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('d')) {
       dotfiles_shown = true;
       return true;
     }
-    if (event == Event::Character('p')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('p')) {
       paths_shown = true;
       return true;
     }
-    if (event == Event::Character('f')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('f')) {
       screen.ExitLoopClosure()();
       system(conf.find_file_cmd);
       return true;
     }
-    if (event == Event::Character('b')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('b')) {
       screen.ExitLoopClosure()();
       system(conf.file_browser_cmd);
       return true;
     }
+    // <enter> select a item
     if (!oldfiles_shown && !dotfiles_shown && !paths_shown && event == Event::Return) {
       radiobox->OnEvent(event);
       switch(conf.radiobox_selected) {
