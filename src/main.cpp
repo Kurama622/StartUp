@@ -71,9 +71,19 @@ Component ModalComponent(std::function<void()> do_nothing,
   return component;
 }
 
-inline bool exists_if (const std::string& name) {
+inline Elements preview_content (std::vector<std::string>& oldfiles_list_bak, int& oldfiles_selected) {
   struct stat buffer;
-  return (stat (name.c_str(), &buffer) == 0); 
+  if (stat (oldfiles_list_bak[oldfiles_selected].c_str(), &buffer) == 0) {
+    if (buffer.st_mode & S_IFDIR) {
+      return {text("This is a dir!")};
+    }
+    else if (buffer.st_mode & S_IFREG) {
+      return exec(("cat " + oldfiles_list_bak[oldfiles_selected]).c_str());
+    }
+  }
+  else {
+    return {text("File not exists!")};
+    }
 }
 
 int main(void) {
@@ -136,11 +146,7 @@ int main(void) {
     // FlexboxConfig config;
     Elements con = {};
     if (!oldfiles_list_bak.empty()) {
-      if(exists_if(oldfiles_list_bak[conf.oldfiles_selected]))
-        con = exec(("cat " + oldfiles_list_bak[conf.oldfiles_selected]).c_str());
-      else {
-        con = {text("The file is not exist")};
-      }
+      con = preview_content(oldfiles_list_bak, conf.oldfiles_selected);
     }
 
     // auto _wrap = FlexboxConfig().Set(FlexboxConfig::Wrap::Wrap)
@@ -246,7 +252,7 @@ int main(void) {
       oldfiles_box->OnEvent(event);
       oldfiles_shown = false;
       screen.ExitLoopClosure()();
-      system((conf.editor + " " + oldfiles_list[conf.oldfiles_selected]).c_str());
+      system((conf.editor + " " + oldfiles_list_bak[conf.oldfiles_selected]).c_str());
       return true;
     }
     if (dotfiles_shown && event == Event::Return) {
