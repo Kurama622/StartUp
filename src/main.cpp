@@ -156,8 +156,8 @@ int main(void) {
                       window(text("") , hbox( {color(Color::Green, text("-> ")) | blink  , vbox(input_box->Render()) })) | size(HEIGHT, EQUAL, 5 ) ,
                   }),
                   vbox({
-                    window(text("HISTORY FILES") | hcenter, vbox(color(Color::Cyan, oldfiles_box->Render())) | yframe) | size(HEIGHT, EQUAL, 45 ) | size(WIDTH, EQUAL, 90 ),
-                    window(text("PREVIEW") | hcenter, color(Color::Cyan, vbox(con))) | size(HEIGHT, EQUAL, 45) | size(WIDTH, EQUAL, 90 ),
+                    window(text("HISTORY FILES") | hcenter, vbox(color(Color::Cyan, oldfiles_box->Render())) | yframe) | size(HEIGHT, EQUAL, 38 ) | size(WIDTH, EQUAL, 90 ),
+                    window(text("PREVIEW") | hcenter, color(Color::Cyan, vbox(con))) | size(HEIGHT, EQUAL, 52) | size(WIDTH, EQUAL, 90 ),
                    })
                 });
   });
