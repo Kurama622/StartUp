@@ -30,6 +30,9 @@
 
 ![](https://gitee.com/svegeta/screenshot/raw/master/dotfiles.jpg)
 
+#### history files preview
+![](https://gitee.com/svegeta/screenshot/raw/master/startup-history-files.png)
+
 **Note**:
 
 `find file` relies on `fzf`.
