@@ -1,7 +1,7 @@
 #ifndef _CONFIG_HPP
 #define _CONFIG_HPP
 #include <string>
-#include<vector>
+#include <vector>
 
 extern "C" {
   #include "lua.h"
@@ -17,18 +17,9 @@ extern "C" {
 
 #define MAX_USERID_LENGTH 32
 
-const std::vector<std::string> radiobox_list = {
-  "Recently Opened Files         <o>",
-  "Find File                     <f>",
-  "File Browser                  <b>",
-  "Open Dotfiles                 <d>",
-  "Tag Paths                     <p>",
-  "Exit                        <Esc>"
-};
-
 
 struct startup {
-  std::vector<std::string> header, dotfiles_list, paths_list;
+  std::vector<std::string> header, item_show, dotfiles_list, paths_list, keymap_list;
   int radiobox_selected, oldfiles_selected, dotfiles_selected, paths_selected;
   std::string editor;
   const char* file_browser_cmd;

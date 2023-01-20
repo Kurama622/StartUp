@@ -1,5 +1,7 @@
 #include "config.hpp"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 
 void GetLuaTable(int& n, lua_State*& L, const char* var_name, std::vector<std::string>& var) {
@@ -13,11 +15,38 @@ void GetLuaTable(int& n, lua_State*& L, const char* var_name, std::vector<std::s
   }
 }
 
+std::string FlexString(const std::string& str) {
+  std::stringstream ss;
+  ss << std::setw(5) << str;
+  return ss.str();
+}
+
 namespace StartUp {
   startup setup() {
-    std::vector<std::string> header = {};
-    std::vector<std::string> dotfiles_list = {};
-    std::vector<std::string> paths_list = {};
+    const std::vector<const char *> sp_item_key = {
+      "history_files_key",
+      "find_file_key",
+      "file_browser_key",
+      "open_dotfiles_key",
+      "tag_paths_key",
+      "exit_key"
+    };
+
+    const std::vector<std::string> sp_item_list = {
+      "History Files               ",
+      "Find File                   ",
+      "File Browser                ",
+      "Open Dotfiles               ",
+      "Tag Paths                   ",
+      "Exit                        "
+    };
+
+    std::vector<std::string> header;
+    std::vector<std::string> item_show;
+    std::vector<std::string> keymap_list;
+    std::vector<std::string> dotfiles_list;
+    std::vector<std::string> paths_list;
+
     std::string HOME = std::getenv("HOME");
     lua_State*  L = luaL_newstate();
     luaL_openlibs(L);
@@ -26,6 +55,20 @@ namespace StartUp {
     lua_getglobal(L, "style");
     const char* style = lua_tostring(L,-1);
     lua_pop(L,1);
+
+    // lua_getglobal(L, "history_files_key");
+    // item_show.push_back(FlexString(lua_tostring(L,-1))) ;
+  
+    const int N_item = sp_item_list.size();
+    for(int i = 0; i < N_item; i++) {
+      lua_getglobal(L, sp_item_key[i]);
+      const char* keymap = lua_tostring(L,-1);
+      keymap_list.push_back(keymap) ;
+      item_show.push_back(sp_item_list[i] + FlexString(keymap)) ;
+      lua_pop(L,1);
+    }
+
+    // lua_pop(L,1);
     //dotfiles_list
     GetLuaTable(n, L, "dotfiles_list", dotfiles_list);
 
@@ -80,7 +123,7 @@ namespace StartUp {
        lua_pop(L,1);
      }
     return {
-      header, dotfiles_list, paths_list,
+      header, item_show, dotfiles_list, paths_list, keymap_list,
       radiobox_selected, oldfiles_selected, dotfiles_selected, paths_selected, 
       editor,
       file_browser_cmd, find_file_cmd, oldfiles_cmd, url

@@ -71,6 +71,21 @@ Component ModalComponent(std::function<void()> do_nothing,
   return component;
 }
 
+Event keymap_transform(const std::string& keymap) {
+  if(std::regex_match(keymap, std::regex("<[a-zA-Z]>"))) {
+      return Event::Character(keymap[1]);
+  }
+  else if(std::regex_match(keymap, std::regex("<C-[a-zA-Z]>"))) {
+    return Event::Special({std::tolower(keymap[3]) - 'a' + 1});
+  }
+  else if(std::regex_match(keymap, std::regex("<M-[a-zA-Z]>"))) {
+    return Event::Special({27, std::tolower(keymap[3]) - '\0'});
+  }
+  else if (keymap == "<Esc>" | keymap == "<esc>" | keymap == "<ESC>"){
+    return Event::Escape;
+  }
+}
+
 inline Elements preview_content (std::vector<std::string>& oldfiles_list_bak, int& oldfiles_selected) {
   struct stat buffer;
   if (stat (oldfiles_list_bak[oldfiles_selected].c_str(), &buffer) == 0) {
@@ -92,7 +107,7 @@ int main(void) {
   for (const std::string& it : conf.header) {
     elements.push_back(color(Color::Green, text(it)));
   }
-  auto radiobox = Radiobox(&radiobox_list, &conf.radiobox_selected);
+  auto radiobox = Radiobox(&conf.item_show, &conf.radiobox_selected);
   auto main_container = Container::Horizontal({
       Document(elements, radiobox) | flex,
   });
@@ -181,42 +196,42 @@ int main(void) {
   main_container |= Modal(oldfiles_renderer, &oldfiles_shown);
   main_container |= Modal(dotfiles_component, &dotfiles_shown);
   main_container |= Modal(paths_component, &paths_shown);
-
+  const Event KEY_CLOSE = keymap_transform(conf.keymap_list[5]);
   auto component = CatchEvent(main_container, [&](Event event) {
-    if (!oldfiles_shown && !dotfiles_shown && !paths_shown && event == Event::Escape ) {
+    if (!oldfiles_shown && !dotfiles_shown && !paths_shown && event == KEY_CLOSE ) {
       screen.ExitLoopClosure()();
       return true;
     }
-    if (oldfiles_shown && event == Event::Escape ) {
+    if (oldfiles_shown && event == KEY_CLOSE) {
       oldfiles_shown = false;
       return true;
     }
-    if (dotfiles_shown && event == Event::Escape ) {
+    if (dotfiles_shown && event == KEY_CLOSE ) {
       dotfiles_shown = false;
       return true;
     }
-    if (paths_shown && event == Event::Escape ) {
+    if (paths_shown && event == KEY_CLOSE ) {
       paths_shown = false;
       return true;
     }
-    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('o')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == keymap_transform(conf.keymap_list[0])) {
       oldfiles_shown = true;
       return true;
     }
-    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('d')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == keymap_transform(conf.keymap_list[3])) {
       dotfiles_shown = true;
       return true;
     }
-    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('p')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == keymap_transform(conf.keymap_list[4])) {
       paths_shown = true;
       return true;
     }
-    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('f')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == keymap_transform(conf.keymap_list[1])) {
       screen.ExitLoopClosure()();
       system(conf.find_file_cmd);
       return true;
     }
-    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == Event::Character('b')) {
+    if ( !(oldfiles_shown ^ dotfiles_shown ^ paths_shown) && event == keymap_transform(conf.keymap_list[2])) {
       screen.ExitLoopClosure()();
       system(conf.file_browser_cmd);
       return true;
