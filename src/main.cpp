@@ -75,10 +75,10 @@ Event keymap_transform(const std::string& keymap) {
       return Event::Character(keymap[1]);
   }
   else if(std::regex_match(keymap, std::regex("<C-[a-zA-Z]>"))) {
-    return Event::Special({std::tolower(keymap[3]) - 'a' + 1});
+    return Event::Special({static_cast<char>(std::tolower(keymap[3]) - 'a' + 1)});
   }
   else if(std::regex_match(keymap, std::regex("<M-[a-zA-Z]>"))) {
-    return Event::Special({27, std::tolower(keymap[3]) - '\0'});
+    return Event::Special({27, static_cast<char>(std::tolower(keymap[3]) - '\0')});
   }
   else if (keymap == "<Esc>" | keymap == "<esc>" | keymap == "<ESC>"){
     return Event::Escape;
