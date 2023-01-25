@@ -12,14 +12,13 @@
 #include "ftxui/component/event.hpp"               // for Event
 #include "unistd.h"
 
-#include "oldfiles.hpp"
 #include "modal.hpp"
 #include "config.hpp"
 
 #include "ftxui/dom/flexbox_config.hpp"
-#include "filter.hpp"
-#include "preview.hpp"
-#include <sys/stat.h>
+#include "base.hpp"
+// #include "preview.hpp"
+// #include <sys/stat.h>
 
 using namespace ftxui;
 
@@ -86,20 +85,6 @@ Event keymap_transform(const std::string& keymap) {
   }
 }
 
-inline Elements preview_content (std::vector<std::string>& oldfiles_list_bak, int& oldfiles_selected) {
-  struct stat buffer;
-  if (stat (oldfiles_list_bak[oldfiles_selected].c_str(), &buffer) == 0) {
-    if (buffer.st_mode & S_IFDIR) {
-      return {text("This is a dir!")};
-    }
-    else if (buffer.st_mode & S_IFREG) {
-      return exec(("cat " + oldfiles_list_bak[oldfiles_selected]).c_str());
-    }
-  }
-  else {
-    return {text("File not exists!")};
-    }
-}
 
 int main(void) {
   auto screen = ScreenInteractive::Fullscreen();
@@ -118,7 +103,7 @@ int main(void) {
   bool paths_shown    = false;
 
   // oldfiles
-  std::vector<std::string> oldfiles_list = StartUp::RecentlyOpenFile(conf.oldfiles_cmd);
+  std::vector<std::string> oldfiles_list = StartUp::HistoryFiles(conf.oldfiles_cmd);
   std::vector<std::string> oldfiles_list_bak = oldfiles_list;
   std::string file_name;
   std::string file_name_bak = file_name;
@@ -153,7 +138,7 @@ int main(void) {
       oldfiles_list_bak.clear();
       conf.oldfiles_selected = 0;
       // menu_entries_bak = {""};
-      filter(oldfiles_list, oldfiles_list_bak, file_name);
+      StartUp::filter(oldfiles_list, oldfiles_list_bak, file_name);
       if (file_name.empty() && oldfiles_list_bak.empty()) {
          oldfiles_list_bak = oldfiles_list;
       }
@@ -161,7 +146,7 @@ int main(void) {
     // FlexboxConfig config;
     Elements con = {};
     if (!oldfiles_list_bak.empty()) {
-      con = preview_content(oldfiles_list_bak, conf.oldfiles_selected);
+      con = StartUp::PreviewContent(oldfiles_list_bak, conf.oldfiles_selected);
     }
 
     // auto _wrap = FlexboxConfig().Set(FlexboxConfig::Wrap::Wrap)

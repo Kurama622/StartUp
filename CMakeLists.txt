@@ -26,9 +26,16 @@ project(StartUp
 find_package(Lua)
 # include_directories(${LUA_INCLUDE_DIR})
 
-add_executable(StartUp src/main.cpp src/modal.cpp src/oldfiles.cpp src/config.cpp src/filter.cpp src/preview.cpp)
+add_executable(StartUp
+    src/main.cpp
+    # src/oldfiles.cpp
+    src/config.cpp
+    src/util/modal.cpp
+    src/util/base.cpp
+    # src/preview.cpp
+    )
 
-target_include_directories(StartUp PRIVATE src ${LUA_INCLUDE_DIR})
+target_include_directories(StartUp PRIVATE  include include/util ${LUA_INCLUDE_DIR})
 
 
 target_link_libraries(StartUp
