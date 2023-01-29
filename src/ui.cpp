@@ -179,7 +179,7 @@ namespace StartUp {
                                                                              dotfiles_input_box,
                                                                              dotfiles_box,
                                                                              "DOT FILES",
-                                                                             28, 52, 70, false);
+                                                                             conf.dotfiles_list.size()+2, 52, 70, false);
                                                        });
 
     // tag paths
@@ -201,7 +201,7 @@ namespace StartUp {
                                                                              paths_input_box,
                                                                              paths_box,
                                                                              "TAG PATHS",
-                                                                             28, 52, 70, false);
+                                                                             conf.paths_list.size()+2, 52, 70, false);
                                                        });
     // SeaPreComponent history_files;
 
