@@ -91,18 +91,46 @@ namespace StartUp {
     return result_vec;
   }
 
-  Elements PreviewContent (std::vector<std::string>& oldfiles_list_bak, int& oldfiles_selected) {
+  Elements PreviewContent (std::vector<std::string>& list_bak, int& selected, const std::string& mode) {
+    if (mode == "DOT FILES" | mode == "TAG PATHS") {
+      for(auto& file : list_bak) {
+        file = std::regex_replace(file, std::regex("(^~)"), std::getenv("HOME"));
+      }
+    }
     struct stat buffer;
-    if (stat (oldfiles_list_bak[oldfiles_selected].c_str(), &buffer) == 0) {
+    if (stat (list_bak[selected].c_str(), &buffer) == 0) {
       if (buffer.st_mode & S_IFDIR) {
-        return {text("This is a dir!")};
+        if (mode == "TAG PATHS") {
+          return GetPreviewContext(("ls -l " + list_bak[selected]).c_str());
+        } else {
+          return {text("This is a dir!")};
+        }
       }
       else if (buffer.st_mode & S_IFREG) {
-        return GetPreviewContext(("cat " + oldfiles_list_bak[oldfiles_selected]).c_str());
+        return GetPreviewContext(("cat " + list_bak[selected]).c_str());
       }
     }
     else {
       return {text("File not exists!")};
       }
+  }
+
+  Component ModalComponent(std::function<void()> do_nothing,
+                           std::function<void()> hide_modal,
+                           Component dotfiles_box,
+                           std::string title, 
+                           int percent) {
+    auto component = Container::Vertical({
+        Renderer(dotfiles_box, [=] {
+                  return vbox({
+                      text({title}) | center,
+                      separator(),
+                      color(Color::Cyan, dotfiles_box->Render()),
+                               }) | yframe;
+                 })
+             | size(WIDTH, GREATER_THAN, percent)
+             | border
+    });
+    return component;
   }
 }

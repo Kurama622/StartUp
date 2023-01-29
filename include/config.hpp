@@ -20,11 +20,11 @@ extern "C" {
 
 struct startup {
   std::vector<std::string> header, item_show, dotfiles_list, paths_list, keymap_list;
-  int radiobox_selected, oldfiles_selected, dotfiles_selected, paths_selected;
+  int radiobox_selected, history_files_selected, dotfiles_selected, paths_selected;
   std::string editor;
   const char* file_browser_cmd;
   const char* find_file_cmd;
-  const char* oldfiles_cmd;
+  const char* history_files_cmd;
   const char* url;
 };
 

@@ -27,12 +27,12 @@ find_package(Lua)
 # include_directories(${LUA_INCLUDE_DIR})
 
 add_executable(StartUp
+    src/ui.cpp
     src/main.cpp
-    # src/oldfiles.cpp
     src/config.cpp
+    src/keymap.cpp
     src/util/modal.cpp
     src/util/base.cpp
-    # src/preview.cpp
     )
 
 target_include_directories(StartUp PRIVATE  include include/util ${LUA_INCLUDE_DIR})
