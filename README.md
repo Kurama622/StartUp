@@ -39,9 +39,6 @@
 
 `file browser` relies on `ranger` / `lf` / ...
 
-**TODO List**:
-- [ ] built-in find file
-- [ ] add tmenu (run command)
 
 ### Installation 
 ```bash
@@ -64,6 +61,14 @@ alias sp='. $HOME/.config/StartUp/StartUp.sh'
 ```lua
 style = "ghost"
 
+history_files_key = "<C-h>"
+find_file_key     = "<C-f>"
+file_browser_key  = "<C-b>"
+open_dotfiles_key = "<C-d>"
+tag_paths_key     = "<C-p>"
+exit_key          = "<Esc>"
+
+
 dotfiles_list = {
   "~/.zshrc",
   "~/.tmux.conf",
@@ -83,6 +88,8 @@ paths_list = {
   "~/.config/nvim",
   "~/.config/ranger",
   "~/.config/zsh/module",
+  "~/Desktop",
+  "~/svegeta"
 }
 
 radiobox_selected   = 0
@@ -96,6 +103,7 @@ find_file_cmd       = "nvim $(fzf)"
 oldfiles_cmd        = "nvim --headless -u NONE -c'echo v:oldfiles | qall!' 2>&1"
 
 url                 = "https://github.com/StubbornVegeta/StartUp"
+
 ```
 `style` ( logo style ):
  - `ghost`
