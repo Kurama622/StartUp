@@ -20,6 +20,7 @@ extern "C" {
 
 struct startup {
   std::vector<std::string> header, item_show, dotfiles_list, paths_list, keymap_list;
+  const char *select_next_key, *select_prev_key;
   int radiobox_selected, history_files_selected, dotfiles_selected, paths_selected;
   std::string editor;
   const char* file_browser_cmd;

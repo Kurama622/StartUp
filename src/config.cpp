@@ -68,7 +68,16 @@ namespace StartUp {
       lua_pop(L,1);
     }
 
-    // lua_pop(L,1);
+    // select_next_key
+    lua_getglobal(L, "select_next_key");
+    const char* select_next_key = lua_tostring(L,-1);
+    lua_pop(L,1);
+
+    // select_prev_key
+    lua_getglobal(L, "select_prev_key");
+    const char* select_prev_key = lua_tostring(L,-1);
+    lua_pop(L,1);
+
     //dotfiles_list
     GetLuaTable(n, L, "dotfiles_list", dotfiles_list);
 
@@ -124,6 +133,7 @@ namespace StartUp {
      }
     return {
       header, item_show, dotfiles_list, paths_list, keymap_list,
+      select_next_key, select_prev_key,
       radiobox_selected, oldfiles_selected, dotfiles_selected, paths_selected, 
       editor,
       file_browser_cmd, find_file_cmd, oldfiles_cmd, url
