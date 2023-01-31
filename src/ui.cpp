@@ -66,7 +66,7 @@ namespace StartUp {
 
       return vbox({
                   vbox({
-                    hbox({color(Color::Green, text("-> ")) | blink,
+                    hbox({color(Color::Cyan, text("  ")) | blink,
                                   hbox(input_box->Render()) }),
                   }),
                   separator() | color(Color::Green),
@@ -79,7 +79,7 @@ namespace StartUp {
                     | color(Color::Green),
 
                     is_preview ?
-                    window(text("PREVIEW") | hcenter,
+                    window(text(" PREVIEW ") | hcenter,
                            color(Color::Cyan, vbox(con)))
                     | size(HEIGHT, EQUAL, preview_win_h_per)
                     | size(WIDTH, EQUAL, w_per)
@@ -128,7 +128,8 @@ namespace StartUp {
     }
 
     // initialize actionable options
-    static auto options_box = Radiobox(&conf.item_show, &conf.radiobox_selected);
+    // static auto options_box = Radiobox(&conf.item_show, &conf.radiobox_selected);
+    static auto options_box = Menu(&conf.item_show, &conf.radiobox_selected);
 
     static Component main_container = Container::Horizontal({
         Dashboard(logo, options_box) | flex,
@@ -156,7 +157,7 @@ namespace StartUp {
                                                                                  conf.history_files_selected,
                                                                                  history_file_input_box,
                                                                                  history_files_box,
-                                                                                 "HISTORY FILES",
+                                                                                 " HISTORY FILES ",
                                                                                  28, 52, 90, true);
                                                        });
 
@@ -178,7 +179,7 @@ namespace StartUp {
                                                                              conf.dotfiles_selected,
                                                                              dotfiles_input_box,
                                                                              dotfiles_box,
-                                                                             "DOT FILES",
+                                                                             " DOT FILES ",
                                                                              conf.dotfiles_list.size()+2, 52, 70, false);
                                                        });
 
@@ -200,7 +201,7 @@ namespace StartUp {
                                                                              conf.paths_selected,
                                                                              paths_input_box,
                                                                              paths_box,
-                                                                             "TAG PATHS",
+                                                                             " TAG PATHS ",
                                                                              conf.paths_list.size()+2, 52, 70, false);
                                                        });
     // SeaPreComponent history_files;
