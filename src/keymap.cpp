@@ -108,19 +108,35 @@ namespace StartUp {
       }
       return false;
     }
-    if (dotfiles_shown && event == Event::Return) {
+    if (dotfiles_shown) {
       ui.dotfiles_box->OnEvent(event);
-      dotfiles_shown = false;
-      screen.ExitLoopClosure()();
-      system((conf.editor + " " + ui.dotfiles_list_bak[conf.dotfiles_selected]).c_str());
-      return true;
+      if (event == Event::Return) {
+        dotfiles_shown = false;
+        screen.ExitLoopClosure()();
+        system((conf.editor + " " + ui.dotfiles_list_bak[conf.dotfiles_selected]).c_str());
+      }
+      else if (event == KEY_SELECT_NEXT) {
+          conf.dotfiles_selected = (conf.dotfiles_selected + 1) % ui.dotfiles_list_bak.size();
+      }
+      else if (event == KEY_SELECT_PREV) {
+          conf.dotfiles_selected = (conf.dotfiles_selected - 1) % ui.dotfiles_list_bak.size();
+      }
+      return false;
     }
     if (paths_shown && event == Event::Return) {
       ui.paths_box->OnEvent(event);
-      screen.ExitLoopClosure()();
-      paths_shown = false;
-      system((std::string("echo cd ") + ui.paths_list_bak[conf.paths_selected] + "> /tmp/startup_cd.sh").c_str());
-      return true;
+      if (event == Event::Return) {
+        screen.ExitLoopClosure()();
+        paths_shown = false;
+        system((std::string("echo cd ") + ui.paths_list_bak[conf.paths_selected] + "> /tmp/startup_cd.sh").c_str());
+      }
+      else if (event == KEY_SELECT_NEXT) {
+          conf.paths_selected = (conf.paths_selected + 1) % ui.paths_list_bak.size();
+      }
+      else if (event == KEY_SELECT_PREV) {
+          conf.paths_selected = (conf.paths_selected - 1) % ui.paths_list_bak.size();
+      }
+      return false;
     }
     return false;
   }
