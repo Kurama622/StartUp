@@ -24,6 +24,9 @@ namespace StartUp {
   // const Event KEY_CLOSE = keymap_transform(conf.keymap_list[5]);
   bool KeyCallback(ScreenInteractive& screen, UI& ui, Event& event ) {
     const Event& KEY_CLOSE =  keymap_transform(conf.keymap_list[5]);
+    const Event& KEY_SELECT_NEXT =  keymap_transform(conf.select_next_key);
+    const Event& KEY_SELECT_PREV =  keymap_transform(conf.select_prev_key);
+
     if (!history_files_shown && !dotfiles_shown && !paths_shown && event == KEY_CLOSE ) {
       screen.ExitLoopClosure()();
       return true;
@@ -90,12 +93,20 @@ namespace StartUp {
       }
       return true;
     }
-    if (history_files_shown && event == Event::Return) {
+    if (history_files_shown) {
       ui.history_files_box->OnEvent(event);
-      history_files_shown = false;
-      screen.ExitLoopClosure()();
-      system((conf.editor + " " + ui.history_files_list_bak[conf.history_files_selected]).c_str());
-      return true;
+      if (event == Event::Return) {
+        history_files_shown = false;
+        screen.ExitLoopClosure()();
+        system((conf.editor + " " + ui.history_files_list_bak[conf.history_files_selected]).c_str());
+      }
+      else if (event == KEY_SELECT_NEXT) {
+          conf.history_files_selected = (conf.history_files_selected + 1) % ui.history_files_list_bak.size();
+      }
+      else if (event == KEY_SELECT_PREV) {
+          conf.history_files_selected = (conf.history_files_selected - 1) % ui.history_files_list_bak.size();
+      }
+      return false;
     }
     if (dotfiles_shown && event == Event::Return) {
       ui.dotfiles_box->OnEvent(event);
