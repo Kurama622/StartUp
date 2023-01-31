@@ -7,6 +7,8 @@ open_dotfiles_key = "<C-d>"
 tag_paths_key     = "<C-p>"
 exit_key          = "<Esc>"
 
+select_next_key   = "<C-n>"
+select_prev_key   = "<C-p>"
 
 dotfiles_list = {
   "~/.zshrc",
