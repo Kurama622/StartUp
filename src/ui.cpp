@@ -19,7 +19,26 @@ namespace StartUp {
   bool history_files_shown = false;
   bool dotfiles_shown = false;
   bool paths_shown    = false;
+
+  MenuEntryOption Colored(Color c) {
+    MenuEntryOption option;
+    option.transform = [c](EntryState state) {
+      state.label = (state.focused ? "  " : "   ") + state.label;
+      Element e = text(state.label) | color(c);
+      if (state.focused)
+        e = text(state.label) | color(Color::Cyan) ;
+      if (state.active)
+        e = e | bold;
+      return e;
+    };
+    return option;
+  }
   Component Dashboard(Elements elements, Component radiobox) {
+    std::vector<Component> menu_vector;
+    for(auto& item : conf.item_show) {
+      menu_vector.push_back(MenuEntry(item, Colored(Color::Green)));
+    }
+    auto menu = Container::Vertical(std::move(menu_vector), &conf.radiobox_selected);
     return Renderer(radiobox, [=] {
       return hbox({
         vbox({
@@ -28,7 +47,7 @@ namespace StartUp {
           }),
           text("") | center,
           text("") | center,
-          color(Color::Cyan, radiobox->Render()) | center,
+          menu->Render() | center,
           text("") | center,
           text("") | center,
           color(Color::Yellow, text(conf.url)) | center,
