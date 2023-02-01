@@ -123,7 +123,7 @@ namespace StartUp {
       }
       return false;
     }
-    if (paths_shown && event == Event::Return) {
+    if (paths_shown) {
       ui.paths_box->OnEvent(event);
       if (event == Event::Return) {
         screen.ExitLoopClosure()();
