@@ -104,7 +104,7 @@ namespace StartUp {
           conf.history_files_selected = (conf.history_files_selected + 1) % ui.history_files_list_bak.size();
       }
       else if (event == KEY_SELECT_PREV) {
-          conf.history_files_selected = (conf.history_files_selected - 1) % ui.history_files_list_bak.size();
+          conf.history_files_selected = conf.history_files_selected > 0 ? conf.history_files_selected - 1 : ui.history_files_list_bak.size();
       }
       return false;
     }
@@ -119,7 +119,7 @@ namespace StartUp {
           conf.dotfiles_selected = (conf.dotfiles_selected + 1) % ui.dotfiles_list_bak.size();
       }
       else if (event == KEY_SELECT_PREV) {
-          conf.dotfiles_selected = (conf.dotfiles_selected - 1) % ui.dotfiles_list_bak.size();
+          conf.dotfiles_selected = conf.dotfiles_selected > 0 ? conf.dotfiles_selected -1 : ui.dotfiles_list_bak.size();
       }
       return false;
     }
@@ -134,7 +134,7 @@ namespace StartUp {
           conf.paths_selected = (conf.paths_selected + 1) % ui.paths_list_bak.size();
       }
       else if (event == KEY_SELECT_PREV) {
-          conf.paths_selected = (conf.paths_selected - 1) % ui.paths_list_bak.size();
+          conf.paths_selected = conf.paths_selected > 0 ? conf.paths_selected - 1 :  ui.paths_list_bak.size();
       }
       return false;
     }
