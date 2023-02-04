@@ -65,9 +65,11 @@ history_files_key = "<C-h>"
 find_file_key     = "<C-f>"
 file_browser_key  = "<C-b>"
 open_dotfiles_key = "<C-d>"
-tag_paths_key     = "<C-p>"
+tag_paths_key     = "<C-t>"
 exit_key          = "<Esc>"
 
+select_next_key   = "<C-n>"
+select_prev_key   = "<C-p>"
 
 dotfiles_list = {
   "~/.zshrc",

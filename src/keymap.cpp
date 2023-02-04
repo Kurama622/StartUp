@@ -66,30 +66,39 @@ namespace StartUp {
       system(conf.file_browser_cmd);
       return true;
     }
-    // <enter> select a item
-    if (!history_files_shown && !dotfiles_shown && !paths_shown && event == Event::Return) {
+
+    if (!history_files_shown && !dotfiles_shown && !paths_shown) {
       ui.options_box->OnEvent(event);
-      switch(conf.radiobox_selected) {
-        case 0:
-          history_files_shown = true;
-          break;
-        case 1:
-          screen.ExitLoopClosure()();
-          system(conf.find_file_cmd);
-          break;
-        case 2:
-          screen.ExitLoopClosure()();
-          system(conf.file_browser_cmd);
-          break;
-        case 3:
-          dotfiles_shown = true;
-          break;
-        case 4:
-          paths_shown = true;
-          break;
-        case 5:
-          screen.ExitLoopClosure()();
-          break;
+      // <Enter> select a item
+      if (event == Event::Return) {
+        switch(conf.radiobox_selected) {
+          case 0:
+            history_files_shown = true;
+            break;
+          case 1:
+            screen.ExitLoopClosure()();
+            system(conf.find_file_cmd);
+            break;
+          case 2:
+            screen.ExitLoopClosure()();
+            system(conf.file_browser_cmd);
+            break;
+          case 3:
+            dotfiles_shown = true;
+            break;
+          case 4:
+            paths_shown = true;
+            break;
+          case 5:
+            screen.ExitLoopClosure()();
+            break;
+        }
+      }
+      else if (event == KEY_SELECT_NEXT) {
+          conf.radiobox_selected = (conf.radiobox_selected + 1) % conf.item_show.size();
+      }
+      else if (event == KEY_SELECT_PREV) {
+          conf.radiobox_selected = conf.radiobox_selected > 0 ? conf.radiobox_selected - 1 : conf.item_show.size();
       }
       return true;
     }
@@ -102,9 +111,20 @@ namespace StartUp {
       }
       else if (event == KEY_SELECT_NEXT) {
           conf.history_files_selected = (conf.history_files_selected + 1) % ui.history_files_list_bak.size();
+          ui.history_files_box->TakeFocus();
       }
       else if (event == KEY_SELECT_PREV) {
           conf.history_files_selected = conf.history_files_selected > 0 ? conf.history_files_selected - 1 : ui.history_files_list_bak.size();
+          ui.history_files_box->TakeFocus();
+      }
+      else if (event == Event::Tab) {
+        if(ui.history_files_input_box->Focused()) {
+          conf.history_files_selected++;
+        }
+        ui.history_files_input_box->TakeFocus();
+      }
+      else {
+          ui.history_files_input_box->TakeFocus();
       }
       return false;
     }
@@ -117,9 +137,20 @@ namespace StartUp {
       }
       else if (event == KEY_SELECT_NEXT) {
           conf.dotfiles_selected = (conf.dotfiles_selected + 1) % ui.dotfiles_list_bak.size();
+          ui.dotfiles_box->TakeFocus();
       }
       else if (event == KEY_SELECT_PREV) {
           conf.dotfiles_selected = conf.dotfiles_selected > 0 ? conf.dotfiles_selected -1 : ui.dotfiles_list_bak.size();
+          ui.dotfiles_box->TakeFocus();
+      }
+      else if (event == Event::Tab) {
+        if(ui.dotfiles_input_box->Focused()) {
+          conf.dotfiles_selected++;
+        }
+        ui.dotfiles_input_box->TakeFocus();
+      }
+      else {
+          ui.dotfiles_input_box->TakeFocus();
       }
       return false;
     }
@@ -132,12 +163,24 @@ namespace StartUp {
       }
       else if (event == KEY_SELECT_NEXT) {
           conf.paths_selected = (conf.paths_selected + 1) % ui.paths_list_bak.size();
+          ui.paths_box->TakeFocus();
       }
       else if (event == KEY_SELECT_PREV) {
           conf.paths_selected = conf.paths_selected > 0 ? conf.paths_selected - 1 :  ui.paths_list_bak.size();
+          ui.paths_box->TakeFocus();
       }
+      else if (event == Event::Tab) {
+        if(ui.paths_input_box->Focused()) {
+          conf.paths_selected++;
+        }
+        ui.paths_input_box->TakeFocus();
+      }
+      else {
+          ui.paths_input_box->TakeFocus();
+      }
+
       return false;
     }
-    return false;
+    return true;
   }
 }

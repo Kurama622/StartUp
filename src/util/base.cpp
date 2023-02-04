@@ -1,5 +1,8 @@
 #include "base.hpp"
 #include <sys/stat.h>
+#include <sstream>
+#include <iomanip>
+#include "ftxui/component/component_options.hpp"
 
 namespace StartUp {
   // Filter a list of strings based on regular matching rules
@@ -35,7 +38,7 @@ namespace StartUp {
   // Parse history files from history file list
   std::vector<std::string> HistoryFiles(const char* cmd) {
     std::string output = GetHistoryFiles(cmd);
-    std::vector<std::string> oldfiles_list = {};
+    std::vector<std::string> oldfiles_list;
     const size_t output_size = output.size();
     size_t pre_pos = 0;
     size_t cur_pos = 0;
@@ -133,4 +136,46 @@ namespace StartUp {
     });
     return component;
   }
+
+  MenuEntryOption Colored(const Color& select_color, const Color& unselect_color, const std::string& indicator) {
+    MenuEntryOption option;
+    option.transform = [select_color, unselect_color, indicator](EntryState state) {
+      std::stringstream ss;
+      ss << std::setw(indicator.size() - 1) << "";
+      state.label = (state.focused ? indicator + " " : ss.str()) + state.label;
+      Element e = text(state.label) | color(unselect_color);
+      if (state.focused)
+        e = text(state.label) | color(select_color) ;
+      if (state.active)
+        e = text(state.label) | color(select_color) ;
+        // e = e | bold;
+      return e;
+    };
+    return option;
+  }
+  MenuOption StartUpMenuOption(const Color& select_color, const Color& unselect_color, const std::string& indicator) {
+    MenuOption option;
+    option.entries.transform = [select_color, unselect_color, indicator](const EntryState& state) {
+      std::stringstream ss;
+      ss << std::setw(indicator.size() - 1) << "";
+      Element e = text((state.active ? indicator + " " : ss.str()) + state.label);
+      // Element e = text((state.focused ? indicator + " " : ss.str()) + state.label);
+      // Element e = text((state.active ? "> " : "  ") + state.label);  // NOLINT
+      // if (state.focused) {
+      //   e |= color(select_color) ;
+      //   // e |= inverted;
+      // }
+      if (state.active) {
+        e |= color(select_color) ;
+        // e |= bold;
+      }
+      if (!state.focused && !state.active) {
+        e |= color(unselect_color) ;
+        // e |= dim;
+      }
+      return e;
+    };
+    return option;
+  }
+
 }
