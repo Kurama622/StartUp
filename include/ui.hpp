@@ -12,6 +12,9 @@ namespace StartUp {
   struct UI {
     Component main_container;
     Component options_box;
+    Component history_files_input_box;
+    Component dotfiles_input_box;
+    Component paths_input_box;
     Component history_files_box;
     Component dotfiles_box;
     Component paths_box;
