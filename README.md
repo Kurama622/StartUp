@@ -56,6 +56,21 @@ Or write the following configuration into `~/.zshrc`:
 ```bash
 alias sp='. $HOME/.config/StartUp/StartUp.sh'
 ```
+#### Keymap
+
+| keymap          | Action                     |
+|-----------------|----------------------------|
+| `TAB`           | select the next option     |
+| `Shift` + `TAB` | select the previous option |
+| `Enter`         | confirm the option         |
+
+You can also customize your shortcuts, such as:
+
+```lua
+select_next_key   = "<C-n>"
+select_prev_key   = "<C-p>"
+```
+
 ### Configuration
 `config.lua`
 ```lua
@@ -94,6 +109,7 @@ paths_list = {
   "~/svegeta"
 }
 
+-- The first option is selected by default
 radiobox_selected   = 0
 oldfiles_selected   = 0
 dotfiles_selected   = 0
