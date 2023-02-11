@@ -1,4 +1,5 @@
-style = "ghost"
+-- style = "ghost"
+style = "hydra"
 
 history_files_key = "<C-h>"
 find_file_key     = "<C-f>"
