@@ -68,7 +68,8 @@ namespace StartUp {
                                   int list_win_h_per,
                                   int preview_win_h_per,
                                   int w_per,
-                                  bool is_preview);
+                                  bool is_preview,
+                                  const std::string& style);
 
 
 

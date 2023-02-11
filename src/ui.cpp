@@ -24,7 +24,6 @@ namespace StartUp {
     std::vector<Component> menu_vector;
     for(auto& item : conf.item_show) {
       menu_vector.push_back(MenuEntry(item, Colored(Color::Yellow, Color::Cyan, " ")));
-      // menu_vector.push_back(MenuEntry(item, Colored(Color::Green, " ")));
     }
     auto menu = Container::Vertical(std::move(menu_vector), &conf.radiobox_selected);
     return Renderer(radiobox, [=] {
@@ -56,7 +55,8 @@ namespace StartUp {
                                   int list_win_h_per,
                                   int preview_win_h_per,
                                   int w_per,
-                                  bool is_preview) {
+                                  bool is_preview,
+                                  const std::string& style) {
       if (file_name != file_name_bak) {
         file_name_bak = file_name;
         list_bak.clear();
@@ -71,29 +71,74 @@ namespace StartUp {
         con = PreviewContent(list_bak, selected, model_name);
       }
 
-      return vbox({
-                  vbox({
-                    hbox({color(Color::Cyan, text("  ")) | blink,
-                                  hbox(input_box->Render()) }),
-                  }),
-                  separator() | color(Color::Green),
-                  vbox({
-                    window(text(model_name) | hcenter,
-                           vbox(color(Color::Cyan, box->Render() | vscroll_indicator))
-                           | yframe)
-                    | size(HEIGHT, EQUAL, list_win_h_per)
-                    | size(WIDTH, EQUAL, w_per)
-                    | color(Color::Green),
+      if(style == "Dropdown" | style == "dropdown")
+        return vbox({
+                    vbox({
+                      hbox({color(Color::Cyan, text("  ")) | blink,
+                                    hbox(input_box->Render()) }),
+                    }),
+                    separator() | color(Color::Green),
+                    vbox({
+                      window(text(model_name) | hcenter,
+                             vbox(color(Color::Cyan, box->Render() | vscroll_indicator))
+                             | yframe)
+                      | size(HEIGHT, EQUAL, list_win_h_per)
+                      | size(WIDTH, EQUAL, w_per)
+                      | color(Color::Green),
 
-                    is_preview ?
-                    window(text(" PREVIEW ") | hcenter,
-                           color(Color::Cyan, vbox(con)))
-                    | size(HEIGHT, EQUAL, preview_win_h_per)
-                    | size(WIDTH, EQUAL, w_per)
-                    | color(Color::Green)
-                    :text("")
-                   })
-                });
+                      is_preview ?
+                      window(text(" PREVIEW ") | hcenter,
+                             color(Color::Cyan, vbox(con)))
+                      | size(HEIGHT, EQUAL, preview_win_h_per)
+                      | size(WIDTH, EQUAL, w_per)
+                      | color(Color::Green)
+                      :text("")
+                     })
+                  });
+      else if (style == "Ivy" | style == "ivy") {
+        int real_w_per;
+        int real_list_h;
+        int real_preview_h;
+        if (is_preview) {
+          real_w_per = w_per - 25;
+          real_list_h = 39;
+          real_preview_h = 40;
+        }
+        else {
+          real_w_per = w_per;
+          real_list_h = list_win_h_per;
+          real_preview_h = preview_win_h_per;
+        }
+
+        return hbox({
+                    vbox({
+                      hbox({color(Color::Cyan, text("  ")) | blink,
+                                    hbox(input_box->Render()) }),
+                      separator() | color(Color::Green),
+                    vbox({
+                      window(text(model_name) | hcenter,
+                             vbox(color(Color::Cyan, box->Render() | vscroll_indicator))
+                             | yframe)
+                      | size(HEIGHT, EQUAL, real_list_h)
+                      | size(WIDTH, EQUAL, real_w_per - 3)
+                      | color(Color::Green),
+                      text(""),
+                      })
+                    }),
+                    separator() | color(Color::Black),
+                    vbox({
+                      text(""),
+                      is_preview ?
+                      window(text(" PREVIEW ") | hcenter,
+                             color(Color::Cyan, vbox(con)))
+                      | size(HEIGHT, EQUAL, real_preview_h)
+                      | size(WIDTH, EQUAL, real_w_per + 3)
+                      | color(Color::Green)
+                      :text("")
+                     })
+                  });
+
+      }
     }
   
 
@@ -136,7 +181,7 @@ namespace StartUp {
                                                                                  history_files_input_box,
                                                                                  history_files_box,
                                                                                  " HISTORY FILES ",
-                                                                                 28, 52, 90, true);
+                                                                                 28, 52, 90, true, "ivy");
                                                        });
 
     // dotfiles
@@ -159,7 +204,7 @@ namespace StartUp {
                                                                              dotfiles_input_box,
                                                                              dotfiles_box,
                                                                              " DOT FILES ",
-                                                                             conf.dotfiles_list.size()+2, 52, 70, false);
+                                                                             conf.dotfiles_list.size()+2, 52, 70, false, "ivy");
                                                        });
 
     // tag paths
@@ -182,7 +227,7 @@ namespace StartUp {
                                                                              paths_input_box,
                                                                              paths_box,
                                                                              " TAG PATHS ",
-                                                                             conf.paths_list.size()+2, 52, 70, false);
+                                                                             conf.paths_list.size()+2, 52, 70, false, "ivy");
                                                        });
 
     main_container |= Modal(history_files_renderer, &history_files_shown);
