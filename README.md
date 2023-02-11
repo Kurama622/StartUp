@@ -34,7 +34,7 @@
 ##### dropdown
 ![](https://gitee.com/svegeta/screenshot/raw/master/startup-history-files.png)
 ##### ivy
-![](https://gitee.com/svegeta/screenshot/raw/master/startup-ivy.png)
+![](https://gitee.com/svegeta/screenshot/raw/master/startup/startup-ivy.png)
 
 **Note**:
 
