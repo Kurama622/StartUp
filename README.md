@@ -31,7 +31,10 @@
 ![](https://gitee.com/svegeta/screenshot/raw/master/dotfiles.jpg)
 
 #### history files preview
+##### dropdown
 ![](https://gitee.com/svegeta/screenshot/raw/master/startup-history-files.png)
+##### ivy
+![](https://gitee.com/svegeta/screenshot/raw/master/startup-ivy.png)
 
 **Note**:
 
