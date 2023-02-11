@@ -19,6 +19,7 @@ dotfiles_list = {
   "~/.config/StartUp/src/config.hpp",
   "~/.config/StartUp/config.lua",
   "~/.config/StartUp/header/header.lua",
+  "/mnt/c/Users/vegeta/.config/wezterm/wezterm.lua",
 }
 
 paths_list = {
