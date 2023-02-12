@@ -73,7 +73,7 @@ namespace StartUp {
 
       return vbox({
                   vbox({
-                    hbox({color(Color::Cyan, text("  ")) | blink,
+                    hbox({color(Color::Cyan, text("  ")) | blink,
                                   hbox(input_box->Render()) }),
                   }),
                   separator() | color(Color::Green),
