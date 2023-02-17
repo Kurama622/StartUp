@@ -96,18 +96,10 @@ namespace StartUp {
                      })
                   });
       else if (style == "Ivy" | style == "ivy") {
-        int real_w_per;
-        int real_list_h;
-        int real_preview_h;
         if (is_preview) {
-          real_w_per = w_per - 25;
-          real_list_h = 39;
-          real_preview_h = 40;
-        }
-        else {
-          real_w_per = w_per;
-          real_list_h = list_win_h_per;
-          real_preview_h = preview_win_h_per;
+          w_per = w_per - 25;
+          list_win_h_per = 39;
+          preview_win_h_per = 40;
         }
 
         return hbox({
@@ -119,8 +111,8 @@ namespace StartUp {
                       window(text(model_name) | hcenter,
                              vbox(color(Color::Cyan, box->Render() | vscroll_indicator))
                              | yframe)
-                      | size(HEIGHT, EQUAL, real_list_h)
-                      | size(WIDTH, EQUAL, real_w_per - 3)
+                      | size(HEIGHT, EQUAL, list_win_h_per)
+                      | size(WIDTH, EQUAL, w_per - 3)
                       | color(Color::Green),
                       text(""),
                       })
@@ -131,8 +123,8 @@ namespace StartUp {
                       is_preview ?
                       window(text(" PREVIEW ") | hcenter,
                              color(Color::Cyan, vbox(con)))
-                      | size(HEIGHT, EQUAL, real_preview_h)
-                      | size(WIDTH, EQUAL, real_w_per + 3)
+                      | size(HEIGHT, EQUAL, preview_win_h_per)
+                      | size(WIDTH, EQUAL, w_per + 3)
                       | color(Color::Green)
                       :text("")
                      })
