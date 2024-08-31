@@ -26,12 +26,12 @@
 
 ### Screenshot
 
-![](https://gitee.com/kurama622/screenshot/raw/master/StartUp.jpg)
+![](https://i-blog.csdnimg.cn/direct/796ebba2008749818f76ccd39ba17719.png)
 
-![](https://gitee.com/kurama622/screenshot/raw/master/dotfiles.jpg)
+![](https://i-blog.csdnimg.cn/direct/0c1e2e19b8c448f294b315d8ac140770.png)
 
 #### history files preview
-![](https://gitee.com/kurama622/screenshot/raw/master/startup-history-files.png)
+![](https://img-blog.csdnimg.cn/img_convert/539918ba6d91c4f18db7c72f55255f0e.png)
 
 **Note**:
 
