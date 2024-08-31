@@ -1,6 +1,6 @@
 <br>
 <p align="center">
-<img alt="logo" src="https://gitee.com/svegeta/screenshot/raw/master/startuplogo-removebg.png" width="50%" />
+<img alt="logo" src="https://gitee.com/kurama622/screenshot/raw/master/startuplogo-removebg.png" width="50%" />
 </p>
 
 <!-- <h1 align="center">StartUp</h1> -->
@@ -11,8 +11,8 @@
 
 <p align="center">
     <a href="#"><img src="https://img.shields.io/badge/c++-%2300599C.svg?style=flat&logo=c%2B%2B&logoColor=white"></img></a>
-  <a href="https://github.com/StubbornVegeta/StartUp/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/StubbornVegeta/StartUp" alt="LICENSE">
+  <a href="https://github.com/kurama622/StartUp/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/kurama622/StartUp" alt="LICENSE">
   </a>
 </p>
 
@@ -26,12 +26,12 @@
 
 ### Screenshot
 
-![](https://gitee.com/svegeta/screenshot/raw/master/StartUp.jpg)
+![](https://gitee.com/kurama622/screenshot/raw/master/StartUp.jpg)
 
-![](https://gitee.com/svegeta/screenshot/raw/master/dotfiles.jpg)
+![](https://gitee.com/kurama622/screenshot/raw/master/dotfiles.jpg)
 
 #### history files preview
-![](https://gitee.com/svegeta/screenshot/raw/master/startup-history-files.png)
+![](https://gitee.com/kurama622/screenshot/raw/master/startup-history-files.png)
 
 **Note**:
 
@@ -42,7 +42,7 @@
 
 ### Installation 
 ```bash
-git clone https://github.com/StubbornVegeta/StartUp ~/.config/
+git clone https://github.com/Kurama622/StartUp ~/.config/
 cd ~/.config/StartUp
 ./install.sh
 ```
@@ -121,7 +121,7 @@ file_browser_cmd    = "ranger"
 find_file_cmd       = "nvim $(fzf)"
 oldfiles_cmd        = "nvim --headless -u NONE -c'echo v:oldfiles | qall!' 2>&1"
 
-url                 = "https://github.com/StubbornVegeta/StartUp"
+url                 = "https://github.com/Kurama622/StartUp"
 
 ```
 `style` ( logo style ):
